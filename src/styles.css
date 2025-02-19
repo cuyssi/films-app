@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-.options {
+#options {
    margin-bottom: 2rem; 
    display: none;
 }
