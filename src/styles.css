@@ -2,26 +2,9 @@
     box-sizing: border-box;
 }
 
-#options {
-   background-color: #506852;
-   margin-top: 3rem; 
+.options {
+   margin-bottom: 2rem; 
    display: none;
-   border:  2px solid #556557;
-   border-radius: 20px;
-   padding: 3rem;   
-    justify-content: center;
-    align-items: center;     
-    box-shadow: 0px 5px 10px #485549;   
-}
-
-.hidden {
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 1rem;
 }
 
 label {
@@ -64,7 +47,6 @@ th, td {
     padding: 10px;
     border-bottom: 1px solid #485549;    
 }
-
 
 body {
     background-color: #639472;
