@@ -13,8 +13,7 @@
         <title>Document</title>
     </head>
     <body>
-        <main>
-            
+        <main>            
             <table id="table" class="table table-success table-striped">
                 <thead>
                     <!--encabezado de la tabla -->
@@ -30,36 +29,35 @@
                 <tbody id="movies"></tbody>
                 <!-- cuerpo donde iran las celdas con los datos -->
             </table>    
-                <section class="bnts">                       
-                    <button id="btnSeeAll">Ver todas las películas</button>
-                    <button id="btnOptions">Opciones</button>
-                <section id="options">
-                    <div class="hidden">
-                    <button id="btnFind">Buscar película</button>
-                    <button id="btnAdd">Añadir película</button>
-                    <button id="btnModify">Modificar película</button>                                
-                    <button id="btnDelete">Borrar película</button><form>
-
-                    </div> 
-                    <label for="id"
-                        >Código
-                        <input type="text" id="id" placeholder="Código" />
-                    <label for="title"
-                        >Título
-                        <input type="text" id="title" placeholder="Título" />
-                    </label>
-                    <label for="year"
-                        >Año
-                        <input type="text" id="year" placeholder="Año" />
-                    </label>
-                    <label for="director"
-                        >Director
-                        <input type="text" id="director" placeholder="Director" />
-                    </label>                   
-                </section>                
-            </form>
-                                  
-                </section>                  
+            <section class="bnts">                       
+                <button id="btnSeeAll">Ver todas las películas</button>
+                <button id="btnOptions">Opciones</button>
+                <form>
+                    <section id="options">
+                        <div class="hidden">
+                            <button id="btnFind">Buscar película</button>
+                            <button id="btnAdd">Añadir película</button>
+                            <button id="btnModify">Modificar película</button>                                
+                            <button id="btnDelete">Borrar película</button>                    
+                        </div> 
+                        <label for="id"
+                            >Código
+                            <input type="text" id="id" placeholder="Código" />
+                        <label for="title"
+                            >Título
+                            <input type="text" id="title" placeholder="Título" />
+                        </label>
+                        <label for="year"
+                            >Año
+                            <input type="text" id="year" placeholder="Año" />
+                        </label>
+                        <label for="director"
+                            >Director
+                            <input type="text" id="director" placeholder="Director" />
+                        </label>                   
+                    </section>                
+                </form>                                  
+            </section>                  
         </main>
         <script src="./src/services.js"></script>
     </body>
