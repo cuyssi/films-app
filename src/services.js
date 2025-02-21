@@ -1,7 +1,7 @@
 const movies = document.getElementById("movies");
 const table = document.getElementById("table");
 const btnSeeAll = document.getElementById("btnSeeAll");
-btnOptions = document.getElementById("btnOptions");
+const btnOptions = document.getElementById("btnOptions");
 const btnAdd = document.getElementById("btnAdd");
 const btnFind = document.getElementById("btnFind");
 const btnModify = document.getElementById("btnModify");
@@ -10,7 +10,8 @@ const title = document.getElementById("title");
 const year = document.getElementById("year");
 const director = document.getElementById("director");
 const see = document.getElementById("see");
-const codigoId = document.getElementById("id").value;
+const options = document.getElementById("options");
+
 
 //CREATE: method POST
 
@@ -45,18 +46,18 @@ async function getAllFilms() {
                 "Content-Type": "application/json",
             },
         });
-        const data = await response.json();
+        const data = await response.json();        
         return data;
     } catch (error) {
         console.log("Error: ", error);
     }
 }
 
-async function getOneFilm(codigoId) {
+async function getOneFilm(id) {
     try {
-        const codigoId = document.getElementById("id").value;
+       
         const response = await fetch(
-            `http://localhost:3000/films/${codigoId}`,
+            `http://localhost:3000/films/${id}`,
             {
                 method: "GET",
                 headers: {
@@ -69,13 +70,20 @@ async function getOneFilm(codigoId) {
        
         movies.innerHTML = `
             <tr>
-                <td>${data.id}</td>
+                <td id="codigoId" >${data.id}</td>
                 <td>${data.title}</td>      
                 <td>${data.year}</td>
                 <td>${data.director}</td>      
             </tr>
         `; 
-        document.getElementById("id").value = "";
+
+        title.value = data.title;
+        year.value = data.year;
+        director.value = data.director;
+        codigoId.value = data.id; 
+
+        options.style.display = "block";
+        
         return data;
     } catch (error) {
         console.log("Error: ", error);
@@ -84,42 +92,55 @@ async function getOneFilm(codigoId) {
 
 //UPDATE: method PUT
 
-async function updateFilms() {
+async function updateFilms(codigoId) {
     try {
-        const codigoId = document.getElementById("id").value;
-        const oneFilm = await getOneFilm(codigoId);
+        // Obtén el id desde el input (asegúrate de que el input exista y tenga el id correcto)
+        const filmId = document.getElementById("codigoId").value;
+        if (!filmId) {
+            alert("No se ha seleccionado ninguna película");
+            return;
+        }
+
+        // Construye el objeto actualizado
         const updatedFilm = {
-            title: title.value || oneFilm.title,
-            year: year.value || oneFilm.year,
-            director: director.value || oneFilm.director,
+            title: title.value,
+            year: year.value,
+            director: director.value,
         };
 
-        const response = await fetch(
-            `http://localhost:3000/films/${codigoId}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedFilm),
-            }
-        );
-        const data = await response.json();
-        alert("Pelicula actualizada con exito");
+        // Realiza la petición PUT usando el ID obtenido
+        const response = await fetch(`http://localhost:3000/films/${filmId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedFilm),
+        });
+
+        if (response.ok) {
+            alert("Pelicula actualizada con éxito");
+        } else {
+            const errorData = await response.json();
+            console.log("Error en update:", errorData);
+            alert("Error al actualizar la película");
+        }
     } catch (error) {
         console.log("Error: ", error);
     }
 }
 
+
+
+
+
+
 //DELETE: method DELETE
 
-async function deleteFilm() {
+async function deleteFilm(oneFilm) {
 
     try {
-        const codigoId = document.getElementById("id").value;
-        const oneFilm = await getOneFilm(codigoId);
+        
+        // const oneFilm = document.getElementById("codigoId").value;
         const response = await fetch(
-            `http://localhost:3000/films/${codigoId}`,
+            `http://localhost:3000/films/${oneFilm}`,
             {
                 method: "DELETE",
                 headers: {
@@ -138,22 +159,26 @@ async function deleteFilm() {
 
 async function printFilms() {
     const data = await getAllFilms();
-
+  
     movies.innerHTML = data
-        .map(({ id, title, year, director }) => {
-            return `
-    <tr>
-      <td>${id}</td>
-      <td>${title}</td>      
-      <td>${year}</td>
-      <td>${director}</td>      
-    </tr>`;
-        })
-        .join("");
-}
+      .map(({ id, title, year, director }) => {
+        return `
+          <tr>
+            <td id ="id">${id}</td>
+            <td>${title}</td>
+            <td>${year}</td>
+            <td>${director}</td>
+            <td><button onclick="getOneFilm('${id}')">Modificar</button></td>
+            <td><button onclick="deleteFilm('${id}')">eliminar</button></td>
+          </tr>`;
+      })
+      .join(""); 
+    }
 
-btnSeeAll.addEventListener("click", () => {
+    
+    btnSeeAll.addEventListener("click", () => {
     printFilms(); 
+    options.style.display = "none";
     if (table.style.display === "none") {        
         table.style.display = "block"; 
     } else {
@@ -161,13 +186,6 @@ btnSeeAll.addEventListener("click", () => {
     }
 });
 
-btnOptions.addEventListener("click", () => {
-    if (options.style.display === "none") {        
-        options.style.display = "block"; 
-    } else {
-        options.style.display = "none"; 
-    }
-});
 
 btnAdd.addEventListener("click", createFilms); 
 
@@ -175,4 +193,5 @@ btnFind.addEventListener("click", getOneFilm);
 
 btnModify.addEventListener("click", updateFilms);
 
-btnDelete.addEventListener("click",  deleteFilm);
+// btnDelete.addEventListener("click",  deleteFilm);
+
