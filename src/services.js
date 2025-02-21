@@ -67,7 +67,7 @@ async function getOneFilm(id) {
         );
 
         const data = await response.json();
-       
+        
         movies.innerHTML = `
             <tr>
                 <td id="codigoId" >${data.id}</td>
@@ -85,6 +85,7 @@ async function getOneFilm(id) {
         codigoId.value = data.id; 
 
         options.style.display = "block";
+        table.style.height = "auto";
         
         return data;
     } catch (error) {

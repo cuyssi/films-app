@@ -27,14 +27,14 @@ input {
 
 #table {/*contendor de la tabla*/      
     display: none;
-    width: 65%;
-    height: 100%; 
-    height: auto;                
+    width: 65%;    
+    height: 50%;                
     border: 2px solid #485549; 
     box-shadow: 0px 5px 10px #485549;
-    border-radius: 20px;
-    overflow: hidden;     
-    padding: 5 rem;  
+    border-radius: 20px;      
+    padding: 5 rem;      
+    overflow-y: scroll; /* o auto */
+    scrollbar-width: none; /* Para Firefox */
 }
 
 thead {
