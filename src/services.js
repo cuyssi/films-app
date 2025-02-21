@@ -73,7 +73,9 @@ async function getOneFilm(id) {
                 <td id="codigoId" >${data.id}</td>
                 <td>${data.title}</td>      
                 <td>${data.year}</td>
-                <td>${data.director}</td>      
+                <td>${data.director}</td>   
+                <td></td>                 
+                <td></td>     
             </tr>
         `; 
 
@@ -129,9 +131,6 @@ async function updateFilms(codigoId) {
 
 
 
-
-
-
 //DELETE: method DELETE
 
 async function deleteFilm(oneFilm) {
@@ -168,11 +167,16 @@ async function printFilms() {
             <td>${title}</td>
             <td>${year}</td>
             <td>${director}</td>
-            <td><button onclick="getOneFilm('${id}')">Modificar</button></td>
-            <td><button onclick="deleteFilm('${id}')">eliminar</button></td>
+            <td><button onclick="getOneFilm('${id}')"><i class="bi bi-gear"></i></button></td>
+            <td><button onclick="deleteFilm('${id}')"><i class="bi bi-trash"></i></button></td>
           </tr>`;
       })
       .join(""); 
+    }
+
+
+    function addFilm() {
+        options.style.display = "block";
     }
 
     
@@ -186,12 +190,8 @@ async function printFilms() {
     }
 });
 
-
 btnAdd.addEventListener("click", createFilms); 
-
-btnFind.addEventListener("click", getOneFilm);
-
 btnModify.addEventListener("click", updateFilms);
 
-// btnDelete.addEventListener("click",  deleteFilm);
+
 
